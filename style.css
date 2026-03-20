@@ -1,0 +1,85 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #0f0f0f;
+    color: #fff;
+}
+
+#marquee {
+    background: #ff3f3f;
+    padding: 10px;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+#marquee span {
+    display: inline-block;
+    padding-left: 100%;
+    animation: marquee 15s linear infinite;
+}
+
+@keyframes marquee {
+    0% { transform: translate(0,0); }
+    100% { transform: translate(-100%,0); }
+}
+
+.filter-bar {
+    margin: 10px 0;
+}
+
+.filter-bar button {
+    margin-right: 5px;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+.filter-bar button.active {
+    background: #ff3f3f;
+    color: #fff;
+    border: none;
+}
+
+#product-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.product-card {
+    background: #1a1a1a;
+    padding: 10px;
+    border-radius: 8px;
+    width: 200px;
+    text-align: center;
+}
+
+.product-card img {
+    width: 100%;
+    border-radius: 8px;
+}
+
+#whatsapp-float {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 50px;
+}
+
+#whatsapp-float img {
+    width: 100%;
+}
+
+#modal, #complainModal {
+    display: none;
+    position: fixed;
+    top: 0; left: 0; right:0; bottom:0;
+    background: rgba(0,0,0,0.8);
+    justify-content: center;
+    align-items: center;
+}
+
+#modal-content, #complainContent {
+    background: #222;
+    padding: 20px;
+    border-radius: 8px;
+}
