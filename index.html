@@ -1,0 +1,369 @@
+<!DOCTYPE html><html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ZenXiterVoidShop</title>
+<style>
+body {
+  margin:0;
+  font-family: Arial, sans-serif;
+  background: #0a0a0a;
+  color: white;
+}
+header {
+  text-align:center;
+  padding:20px;
+  font-size:28px;
+  font-weight:bold;
+  background: linear-gradient(90deg,#000,#111,#000);
+}
+.container {
+  padding:20px;
+}
+.card {
+  background:#111;
+  border-radius:15px;
+  padding:20px;
+  margin-bottom:20px;
+  box-shadow:0 0 15px rgba(0,255,255,0.3);
+  position:relative;
+  overflow:hidden;
+}
+.card::before {
+  content:"";
+  position:absolute;
+  width:100%;
+  height:100%;
+  background: linear-gradient(120deg,transparent,rgba(0,255,255,0.7),transparent);
+  animation: lightning 1.5s infinite;
+}
+@keyframes lightning {
+  0%{opacity:0;transform:translateX(-100%);} 
+  50%{opacity:1;transform:translateX(100%);} 
+  100%{opacity:0;transform:translateX(-100%);} 
+}
+.btn {
+  display:inline-block;
+  margin-top:10px;
+  padding:10px 15px;
+  background:#00ffff;
+  color:black;
+  border-radius:10px;
+  text-decoration:none;
+  font-weight:bold;
+}
+.section-title {
+  font-size:22px;
+  margin:20px 0 10px;
+  border-left:5px solid cyan;
+  padding-left:10px;
+}/* CHAT BUBBLE */ .chat-area{max-height:200px;overflow-y:auto;margin-top:10px;padding:5px} .msg{padding:8px 10px;border-radius:10px;margin:5px 0;max-width:80%;font-size:13px;animation:fadeIn .2s ease} .user{background:cyan;color:black;margin-left:auto;text-align:right} .bot{background:#111;color:#0ff} @keyframes fadeIn{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}} </style>
+
+</head>
+<body>
+<header>⚡ ZenXiterVoidShop ⚡</header><div class="container"><div class="section-title">📦 List Module</div><div class="card">
+<h3>⚡ ZenXiterVoidFree</h3>
+<p>Status: Coming Soon</p>
+<p>Module gratis dengan fitur dasar untuk pemula.</p>
+<a class="btn" href="https://whatsapp.com/channel/0029VbC0Y4yGzzKQkuusY61V">🔗 Join Saluran</a>
+</div><div class="card">
+<h3>⚡ ZenXiterVoidVip</h3>
+<p>💰 Harga: 5K</p>
+<p>Status: Coming Soon</p>
+<p>Fitur lebih lengkap dan stabil.</p>
+<a class="btn" href="https://whatsapp.com/channel/0029VbC0Y4yGzzKQkuusY61V">🔗 Join Saluran</a>
+</div><div class="card">
+<h3>⚡ ZenXiterVoidAimlockLimited</h3>
+<p>💰 Harga: 10K</p>
+<p>Status: Coming Soon</p>
+<p>Fitur aimlock terbatas untuk performa maksimal.</p>
+<a class="btn" href="https://whatsapp.com/channel/0029VbC0Y4yGzzKQkuusY61V">🔗 Join Saluran</a>
+</div><div class="section-title">🎁 Fitur Gratis</div><div class="card">
+<h3>FF Beta Free</h3>
+<p>Download config FF Beta gratis.</p>
+<a class="btn" href="https://www.mediafire.com/file/ikoi50s5rglkphc/localconfig.json/file">⬇ Download</a>
+</div><div class="card">
+<h3>Verifikasi FF Beta</h3>
+<p>Join saluran dan kirim ID untuk verifikasi akun.</p>
+<a class="btn" href="https://whatsapp.com/channel/0029VbC0Y4yGzzKQkuusY61V">✔ Verifikasi</a>
+</div><div class="section-title">⚙️ Cara Pasang Module</div><div class="card">
+<ol>
+<li>Download file module</li>
+<li>Masuk ke folder: <b>/storage/emulated/0/Android/data/</b></li>
+<li>Paste file ke folder game</li>
+<li>Restart game</li>
+<li>Module siap digunakan ✅</li>
+</ol>
+</div><div class="section-title">❓ Bantuan</div><div class="card">
+<p>Tidak tahu cara pasang module? Masuk ke grup bantuan di bawah ini.</p>
+<a class="btn" href="https://whatsapp.com/channel/0029VbC0Y4yGzzKQkuusY61V">💬 Masuk Grup</a>
+</div></div><!-- CHAT BOT PRO --><div id="chatbot" style="position:fixed;bottom:20px;right:20px;z-index:999;">
+  <button onclick="toggleChat()" style="padding:12px 15px;border-radius:50%;background:#00ffff;border:none;font-size:18px;box-shadow:0 0 10px cyan;">💬</button>  <div id="chatbox" style="display:none;background:#0a0a0a;padding:15px;border-radius:15px;width:260px;margin-top:10px;box-shadow:0 0 15px cyan;">
+    <p id="botText"><b>⚡ ZenVoid AI:</b> <span id="typing"></span></p><input id="userInput" placeholder="Tanya sesuatu..." style="width:100%;padding:8px;border-radius:8px;border:none;margin-top:10px;">
+<button onclick="sendMsg()" style="margin-top:10px;width:100%;padding:8px;background:cyan;border:none;border-radius:8px;">Kirim</button>
+
+<p id="chatArea" class="chat-area" style="margin-top:10px;font-size:14px;color:#0ff;"></p>
+
+  </div>
+</div><script>
+// 🤖 FAKE AI (NO API - GRATIS)
+let joined = false;
+
+function toggleChat(){
+  let box = document.getElementById('chatbox');
+  box.style.display = box.style.display === 'none' ? 'block' : 'none';
+  typeText("⚡ ZenVoid AI online...");
+}
+
+function typeText(text){
+  let i = 0;
+  let typing = document.getElementById('typing');
+  typing.innerHTML = "";
+
+  let interval = setInterval(()=>{
+    typing.innerHTML += text.charAt(i);
+    i++;
+    if(i >= text.length) clearInterval(interval);
+  },25);
+}
+
+function addMsg(text,type){
+  let area=document.getElementById('chatArea');
+  let div=document.createElement('div');
+  div.className='msg '+type;
+  div.innerHTML=text;
+  area.appendChild(div);
+  area.scrollTop=area.scrollHeight;
+}
+
+let typingTimeout;
+
+function addMsg(text,type){
+  let area=document.getElementById('chatArea');
+  if(!area) return;
+  let div=document.createElement('div');
+  div.className='msg '+type;
+  div.innerHTML=text;
+  area.appendChild(div);
+  area.scrollTop=area.scrollHeight;
+}
+
+function showTyping(){
+  clearTimeout(typingTimeout);
+  addMsg('🟢 ZenVoid AI sedang mengetik...','bot');
+}
+
+function sendMsg(){
+  let inputEl=document.getElementById('userInput');
+  let input=inputEl.value.trim();
+  if(!input) return;
+
+  addMsg(input,'user');
+  inputEl.value="";
+
+  let text=input.toLowerCase();
+
+  showTyping();
+
+  typingTimeout=setTimeout(()=>{
+
+    // BUG MODE AKTIF
+    if(window.bugMode){
+      window.bugMode=false;
+      addMsg('✅ Bug terkirim ke admin!','bot');
+      let wa="https://wa.me/6281991000991?text="+encodeURIComponent('Laporan Bug:
+'+input);
+      window.open(wa,'_blank');
+      return;
+    }
+
+    // MASUK MODE BUG
+    if(text.includes('bug')||text.includes('error')){
+      window.bugMode=true;
+      addMsg('🐞 Tulis bug kamu sekarang:','bot');
+      return;
+    }
+
+    // LOCK DOWNLOAD
+    if(text.includes('download')){
+      if(!joined){
+        addMsg("🔒 Join dulu:<br><a href='https://whatsapp.com/channel/0029VbC0Y4yGzzKQkuusY61V' target='_blank'>Klik Join</a><br><br><button onclick='verifJoin()'>Saya sudah join</button>",'bot');
+      }else{
+        addMsg("✅ <a href='https://www.mediafire.com/file/ikoi50s5rglkphc/localconfig.json/file' target='_blank'>Download</a>",'bot');
+      }
+      return;
+    }
+
+    // RESPON NORMAL
+    if(text.includes('halo')||text.includes('hai')){
+      addMsg('🤖 Halo! Mau apa?','bot');
+    }else if(text.includes('join')){
+      addMsg("🔗 <a href='https://whatsapp.com/channel/0029VbC0Y4yGzzKQkuusY61V' target='_blank'>Join Saluran</a>",'bot');
+    }else if(text.includes('pasang')){
+      addMsg('⚙️ 1. Download<br>2. Android/data<br>3. Paste<br>4. Restart','bot');
+    }else{
+      addMsg('🤖 Ketik: download / join / pasang / bug','bot');
+    }
+
+  },700);
+}
+
+  if(window.bugMode){
+    window.bugMode=false;
+    addMsg('✅ Bug terkirim ke admin!','bot');
+    let wa="https://wa.me/6281991000991?text="+encodeURIComponent('Laporan Bug:
+'+input);
+    window.open(wa,'_blank');
+    return;
+  }
+
+  if(text.includes('download')){
+    if(!joined){
+      addMsg("🔒 Join dulu:<br><a href='https://whatsapp.com/channel/0029VbC0Y4yGzzKQkuusY61V' target='_blank'>Klik Join</a><br><br><button onclick='verifJoin()'>Saya sudah join</button>",'bot');
+    }else{
+      addMsg("✅ <a href='https://www.mediafire.com/file/ikoi50s5rglkphc/localconfig.json/file' target='_blank'>Download</a>",'bot');
+    }
+    return;
+  }
+
+  if(text.includes('halo')||text.includes('hai')){
+    addMsg('🤖 Halo! Mau apa?','bot');
+  }else if(text.includes('join')){
+    addMsg("🔗 <a href='https://whatsapp.com/channel/0029VbC0Y4yGzzKQkuusY61V' target='_blank'>Join Saluran</a>",'bot');
+  }else if(text.includes('pasang')){
+    addMsg('⚙️ 1. Download<br>2. Android/data<br>3. Paste<br>4. Restart','bot');
+  }else{
+    addMsg('🤖 Ketik: download / join / pasang / bug','bot');
+  }
+}
+
+document.getElementById('userInput').addEventListener('keypress',function(e){
+  if(e.key==='Enter') sendMsg();
+});
+
+  if(window.bugMode){
+    let laporan = input;
+    window.bugMode = false;
+
+    res.innerHTML = "✅ Bug berhasil dikirim!";
+
+    let wa = "https://wa.me/6281991000991?text=" + encodeURIComponent("Laporan Bug:
+" + laporan);
+    window.open(wa, "_blank");
+    return;
+  }
+
+  // 🔒 LOCK DOWNLOAD
+  if(input.includes("download")){
+    if(!joined){
+      res.innerHTML = "🔒 Join dulu:<br><a href='https://whatsapp.com/channel/0029VbC0Y4yGzzKQkuusY61V' target='_blank'>Klik Join</a><br><br><button onclick='verifJoin()'>Saya sudah join</button>";
+      return;
+    } else {
+      res.innerHTML = "✅ Download:<br><a href='https://www.mediafire.com/file/ikoi50s5rglkphc/localconfig.json/file' target='_blank'>Klik sini</a>";
+      return;
+    }
+  }
+
+  // 🧠 AI SEDERHANA
+  if(input.includes("halo") || input.includes("hai")){
+    res.innerHTML = "🤖 Halo! Mau apa? (download / join / pasang / bug)";
+  }
+  else if(input.includes("join")){
+    res.innerHTML = "🔗 <a href='https://whatsapp.com/channel/0029VbC0Y4yGzzKQkuusY61V' target='_blank'>Join Saluran</a>";
+  }
+  else if(input.includes("pasang")){
+    res.innerHTML = "⚙️ 1. Download<br>2. Android/data<br>3. Paste<br>4. Restart";
+  }
+  else {
+    res.innerHTML = "🤖 Ketik: download / join / pasang / bug";
+  }
+} else {
+      res.innerHTML = "✅ Akses diberikan!<br><a href='https://www.mediafire.com/file/ikoi50s5rglkphc/localconfig.json/file' target='_blank'>Download sekarang</a>";
+      return;
+    }
+  }
+
+  // 🧠 AI SEDERHANA
+  if(input.includes("halo") || input.includes("hai")){
+    res.innerHTML = "🤖 Halo! Mau download, join saluran, atau cara pasang?";
+  }
+  else if(input.includes("join") || input.includes("saluran")){
+    res.innerHTML = "🔗 Join di sini:<br><a href='https://whatsapp.com/channel/0029VbC0Y4yGzzKQkuusY61V' target='_blank'>Klik Join</a>";
+  }
+  else if(input.includes("pasang") || input.includes("install")){
+    res.innerHTML = "⚙️ Cara pasang:<br>1. Download file<br>2. Masuk Android/data<br>3. Paste file<br>4. Restart game";
+  }
+  else if(input.includes("vip")){
+    res.innerHTML = "💰 ZenXiterVoidVip harga 5K (Coming Soon)";
+  }
+  else if(input.includes("aimlock")){
+    res.innerHTML = "🎯 Aimlock Limited harga 10K (Coming Soon)";
+  }
+  else {
+    res.innerHTML = "🤖 Tidak ditemukan... coba kata: download / join / pasang 😈";
+  }
+}
+
+function verifJoin(){
+  joined = true;
+  document.getElementById('response').innerHTML = "⚡ ACCESS GRANTED! Sekarang ketik 'download' 😈";
+}
+// 🐞 LAPOR BUG LEWAT BOT (TANPA KELUAR WEB)
+function sendMsg(){
+  let input = document.getElementById('userInput').value.toLowerCase();
+  let res = document.getElementById('response');
+
+  // MODE LAPOR BUG
+  if(input.includes("bug") || input.includes("error")){
+    res.innerHTML = "🐞 Tulis bug kamu, nanti akan dikirim ke admin...";
+    window.bugMode = true;
+    return;
+  }
+
+  if(window.bugMode){
+    let laporan = input;
+    window.bugMode = false;
+
+    res.innerHTML = "✅ Bug berhasil dikirim ke admin! Terima kasih 😈";
+
+    // kirim ke WhatsApp (background)
+    let wa = "https://wa.me/6281991000991?text=" + encodeURIComponent("Laporan Bug ZenXiterVoidShop:
+" + laporan);
+    window.open(wa, "_blank");
+    return;
+  }
+
+  // 🔒 LOCK DOWNLOAD
+  if(input.includes("download")){
+    if(!joined){
+      res.innerHTML = "🔒 Akses ditolak!<br>Join dulu:<br><a href='https://whatsapp.com/channel/0029VbC0Y4yGzzKQkuusY61V' target='_blank'>Klik Join</a><br><br><button onclick='verifJoin()'>Saya sudah join</button>";
+      return;
+    } else {
+      res.innerHTML = "✅ Akses diberikan!<br><a href='https://www.mediafire.com/file/ikoi50s5rglkphc/localconfig.json/file' target='_blank'>Download sekarang</a>";
+      return;
+    }
+  }
+
+  // 🧠 AI SEDERHANA
+  if(input.includes("halo") || input.includes("hai")){
+    res.innerHTML = "🤖 Halo! Mau download, join, pasang, atau lapor bug?";
+  }
+  else if(input.includes("join")){
+    res.innerHTML = "🔗 Join di sini:<br><a href='https://whatsapp.com/channel/0029VbC0Y4yGzzKQkuusY61V' target='_blank'>Klik Join</a>";
+  }
+  else if(input.includes("pasang")){
+    res.innerHTML = "⚙️ Cara pasang:<br>1. Download<br>2. Android/data<br>3. Paste<br>4. Restart";
+  }
+  else {
+    res.innerHTML = "🤖 Tidak ditemukan... coba: download / join / pasang / bug 😈";
+  }
+}
+
+function verifJoin(){
+  joined = true;
+  document.getElementById('response').innerHTML = "⚡ ACCESS GRANTED! Sekarang ketik 'download' 😈";
+}
+</script><!-- BUTTON LAPOR BUG --><div style="position:fixed;bottom:90px;right:20px;z-index:999;">
+  <button onclick="reportBug()" style="padding:10px 15px;background:red;color:white;border:none;border-radius:10px;box-shadow:0 0 10px red;">🐞 Lapor Bug</button>
+</div></body>
+</html>
